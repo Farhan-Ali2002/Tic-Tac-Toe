@@ -34,4 +34,3 @@ dialog(BuildContext context, String msg) {
         ]);
       });
 }
-

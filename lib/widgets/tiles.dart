@@ -12,7 +12,9 @@ class _TicTilesState extends State<TicTiles> {
   Widget build(BuildContext context) {
     return InkWell(
         child: Container(
-      decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+      decoration: BoxDecoration(
+          border: Border.all(
+              color: const Color.fromARGB(255, 14, 117, 143), width: 4)),
       child: const Text('yooo'),
     ));
   }

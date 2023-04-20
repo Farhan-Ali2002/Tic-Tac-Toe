@@ -11,8 +11,7 @@ class TicTacToe extends StatefulWidget {
 class _TicTacToeState extends State<TicTacToe> {
   final p1 = 'x';
   final p2 = 'o';
-  String p1ex = "<-";
-  String p2ex = "";
+
   bool isP1turn = true;
   void _clearBoard() {
     grid = [
@@ -31,8 +30,10 @@ class _TicTacToeState extends State<TicTacToe> {
         isP1turn = false;
         setState(() {});
         if (didSomeoneWin(grid, p1, context)) {
-          dialog(context, "player1win");
-          _clearBoard();
+          Future.delayed(const Duration(seconds: 1), () {
+            dialog(context, "player1win");
+            _clearBoard();
+          });
         }
       }
     } else {
@@ -41,8 +42,10 @@ class _TicTacToeState extends State<TicTacToe> {
         isP1turn = true;
         setState(() {});
         if (didSomeoneWin(grid, p2, context)) {
-          dialog(context, "player2win");
-          _clearBoard();
+          Future.delayed(const Duration(seconds: 1), () {
+            dialog(context, "player2win");
+            _clearBoard();
+          });
         }
       }
     }
@@ -56,7 +59,9 @@ class _TicTacToeState extends State<TicTacToe> {
     return InkWell(
         onTap: () => onTouchInk(x, y),
         child: Container(
-          decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: const Color.fromARGB(255, 14, 117, 143), width: 3)),
           child: Center(
               child: Text(
             grid[x][y],
@@ -74,73 +79,123 @@ class _TicTacToeState extends State<TicTacToe> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey.shade600,
-      height: 500,
-      width: 450,
-      child: Stack(
-        children: [
-          Positioned(
-            left: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.blueGrey,
-                  border: Border.all(width: 2)),
-              height: 60,
-              width: 120,
-              child: Column(
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 4, 42, 73),
+      appBar: AppBar(
+        title: const Text("Tic Tac Toe"),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 14, 72, 121),
+      ),
+      body: SizedBox(
+        height: double.infinity,
+        width: double.infinity,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 150,
+              width: 210,
+              child: Row(
                 children: [
                   Container(
+                    alignment: Alignment.center,
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 108, 19, 124),
+                            width: 2.4)),
                     padding: const EdgeInsets.all(6),
-                    child: Text("Player1 Turn" + p1ex,
-                        style: TextStyle(
-                          fontWeight:
-                              (isP1turn) ? FontWeight.bold : FontWeight.normal,
-                          color: (isP1turn) ? Colors.yellow : Colors.white,
-                        )),
+                    child: Column(
+                      children: [
+                        Text("Player1",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: (isP1turn)
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: (isP1turn) ? Colors.yellow : Colors.white,
+                            )),
+                        const Text(
+                          'x',
+                          style: TextStyle(
+                              fontSize: 50,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
                   ),
                   Container(
+                    alignment: Alignment.center,
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 108, 19, 124),
+                            width: 2.4)),
                     padding: const EdgeInsets.all(6),
-                    child: Text("Player2 Turn" + p2ex,
-                        style: TextStyle(
-                          fontWeight:
-                              (isP1turn) ? FontWeight.normal : FontWeight.bold,
-                          color: (isP1turn) ? Colors.white : Colors.yellow,
-                        )),
+                    child: Column(
+                      children: [
+                        Text("Player2",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: (isP1turn)
+                                  ? FontWeight.normal
+                                  : FontWeight.bold,
+                              color: (isP1turn) ? Colors.white : Colors.yellow,
+                            )),
+                        const Text(
+                          'o',
+                          style: TextStyle(
+                              fontSize: 50,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-          Center(
-            child: Container(
-              alignment: Alignment.center,
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                  color: Colors.black, border: Border.all(color: Colors.white)),
-              child: GridView.builder(
-                itemCount: 9,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+            const SizedBox(
+              height: 50,
+            ),
+            Center(
+              child: Container(
+                alignment: Alignment.center,
+                width: 300,
+                height: 300,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 14, 117, 143),
+                        width: 4)),
+                child: GridView.builder(
+                  itemCount: 9,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                  ),
+                  itemBuilder: _buildGridItems,
                 ),
-                itemBuilder: _buildGridItems,
               ),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Positioned(
-            bottom: 0,
-            left: 180,
-            child: ElevatedButton(
-                style: const ButtonStyle(),
-                onPressed: _clearBoard,
-                child: const Text("clear board")),
-          )
-        ],
+            const SizedBox(
+              height: 10,
+            ),
+            Positioned(
+              bottom: 0,
+              left: 150,
+              child: ElevatedButton(
+                  style: const ButtonStyle(
+                      elevation: MaterialStatePropertyAll(8.0)),
+                  onPressed: _clearBoard,
+                  child: const Text("clear board")),
+            )
+          ],
+        ),
       ),
     );
   }
