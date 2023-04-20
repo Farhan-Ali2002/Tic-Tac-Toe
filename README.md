@@ -1,16 +1,16 @@
-# practice_book
+# TIC TAC TOE
+- Built in Flutter.
+-
+ ## Important Widgets and Tools
+ - GridView.builder
+ - Stateful widget
+ - ShowDialog
+ - Rows and Columns
+ 
+ ## Description
+ 
+ 
+ ##Demonstration
+ 
+https://user-images.githubusercontent.com/109536970/233301855-89010785-a497-4986-ae72-dd1e1b8ee1e8.mp4
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
